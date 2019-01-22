@@ -42,9 +42,18 @@ def infix_to_postfix(infix: list) -> list:
     return postfix
 
 
-def operate(operator: str, a: str, b: str) -> float:
-    x = float(a)
-    y = float(b)
+def has_dot(elem) -> bool:
+    return '.' in str(elem)
+
+
+def cast_ab(a, b) -> ():
+    if has_dot(a) or has_dot(b):
+        return float(a), float(b)
+    return int(a), int(b)
+
+
+def operate(operator: str, a: str, b: str):
+    x, y = cast_ab(a, b)
     if operator == '+':
         return x + y
     elif operator == '-':
@@ -52,7 +61,7 @@ def operate(operator: str, a: str, b: str) -> float:
     elif operator == '*':
         return x * y
     elif operator == '/':
-        return x / y
+        return x // y
     return None
 
 
