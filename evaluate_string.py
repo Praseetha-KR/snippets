@@ -1,10 +1,6 @@
 import re
 
 
-def str_to_infix(expr: str) -> list:
-    return expr.split(' ')
-
-
 def is_operator(token: str) -> bool:
     return token in ['+', '-', '*', '/']
 
@@ -18,6 +14,23 @@ def has_high_precedence(op1: str, op2: str) -> bool:
         if op2 in ['+', '-']:
             return True
     return False
+
+
+def str_to_infix(expr: str) -> list:
+    arr = []
+    buffer = ''
+    string = expr.replace(' ', '')
+    for token in string:
+        if is_operator(token):
+            arr.append(buffer)
+            arr.append(token)
+            buffer = ''
+            continue
+        elif is_operand(token):
+            buffer += token
+            continue
+    arr.append(buffer)
+    return arr
 
 
 def infix_to_postfix(infix: list) -> list:
